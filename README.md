@@ -38,7 +38,7 @@
          | writers      | text[] |
          | actors      | text[] |
          | plot      | text |
-         | actors      | text |
+         | awards      | text |
          | poster      | text |
          
    4. Update the program so that when ```main.py``` is run it...
