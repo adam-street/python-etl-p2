@@ -2,6 +2,7 @@ import pgsql
 import sql
 import json
 import requests
+from datetime import datetime
 
 def get_movie_data(title):
     headers = {"Authorization": "9855f49b"}
@@ -25,7 +26,7 @@ for row in data:
                 dataset['Rated'] != 'N/A' and dataset['Released'] != 'N/A' and dataset['Runtime'] != 'N/A' and \
                 dataset['Genre'] != 'N/A' and dataset['Director'] != 'N/A' and dataset['Writer'] != 'N/A' and \
                 dataset['Actors'] != 'N/A' and dataset['Plot'] != 'N/A' and dataset['Awards'] != 'N/A' and \
-                dataset['Poster'] != 'N/A':
+                dataset['Poster'] != 'N/A' and datetime.strptime(dataset['Released'], "%d %b %Y").year > 2017:
             movie_no_dup = list(set(movie))
             if dataset['Title'] not in movie_no_dup:
                 info = []
@@ -35,12 +36,12 @@ for row in data:
                 cleaner = dataset['Runtime']
                 cleaner = cleaner.strip(' min')  # Change from hard code to fluid
                 info.append(int(cleaner))
-                cleaner2 = dataset['Genre'].split(',')
+                cleaner2 = dataset['Genre'].split(', ')
                 info.append(list(cleaner2))
                 info.append(dataset['Director'])
-                cleaner3 = dataset['Writer'].split(',')
+                cleaner3 = dataset['Writer'].split(', ')
                 info.append(list(cleaner3))
-                cleaner4 = dataset['Actors'].split(',')
+                cleaner4 = dataset['Actors'].split(', ')
                 info.append(list(cleaner4))
                 info.append(dataset['Plot'])
                 info.append(dataset['Awards'])
